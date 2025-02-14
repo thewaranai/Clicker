@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle autState){
         super.onSaveInstanceState(autState);
-        autState.putInt("Klic", count);
+        autState.putInt("Нажалось", count);
         Log.d("Instens","onSave");
         Toast.makeText(this, "onSave",Toast.LENGTH_LONG).show();
     }
