@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "onStart", Toast.LENGTH_LONG).show();
     }
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Instens", "onStop");
+        Toast.makeText(this, "onStop", Toast.LENGTH_LONG).show();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Instens", "onDestroy");
+        Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
+    }
+    @Override
     protected  void onResume(){
         super.onResume();
         Log.d("Instens", "onResume");
@@ -44,17 +57,25 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "onPause", Toast.LENGTH_LONG).show();
     }
     @Override
-    protected void onSaveInstanceState(Bundle autState){
+    protected void onSaveInstanceState(@NonNull Bundle autState){
         super.onSaveInstanceState(autState);
         autState.putInt("Нажалось", count);
         Log.d("Instens","onSave");
         Toast.makeText(this, "onSave",Toast.LENGTH_LONG).show();
     }
-public void onClickButton(View view){
+    protected void onRestoreInstanceState(@NonNull Bundle SavedState){
+        super.onRestoreInstanceState(SavedState);
+        if(SavedState != null && SavedState.containsKey("Нажалось")){
+            count = SavedState.getInt("Нажалось");
+        }
+        Log.d("Instens","get");
+        Toast.makeText(this, "get",Toast.LENGTH_LONG).show();
+    }
+    public void onClickButton(View view){
     count = 0;
     TextView txt= findViewById(R.id.txtCounter);
     txt.setText(count.toString());
-}
+    }
     public void onClickBatton(View view) {
         count++;
         TextView txt= findViewById(R.id.txtCounter);
